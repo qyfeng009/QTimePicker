@@ -15,15 +15,24 @@ private var baseViewHeight = 49 + 30 + 6 * calendarItemWH + 6 * 8
 typealias DidSelectedDate = (_ date: String) -> ()
 class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, TimePickerViewDelegate {
     
-    var baseView: UIView!
-    var dateBtn: UIButton!
-    var timeBtn: UIButton!
-    var currentDate: String!
-    var currentTime: String!
-    var cursorView: UIView!
-    var calendarView: CalendarView!
-    var timePickerView: TimePickerView!
-    var selectedBack: DidSelectedDate?
+    private var baseView: UIView!
+    private var dateBtn: UIButton!
+    private var timeBtn: UIButton!
+    private var currentDate: String!
+    private var currentTime: String!
+    private var cursorView: UIView!
+    private var calendarView: CalendarView!
+    private var timePickerView: TimePickerView!
+    private var selectedBack: DidSelectedDate?
+    open var isAllowSelectTime: Bool? = true {
+        didSet {
+            if isAllowSelectTime == true {
+                timeBtn.isHidden = false
+            } else {
+                timeBtn.isHidden = true
+            }
+        }
+    }
 
     init(selectedDate: @escaping DidSelectedDate) {
         super.init(frame: UIScreen.main.bounds)
@@ -89,9 +98,8 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
         timePickerView.x = baseView.width
         timePickerView.delegate = self
         baseView.addSubview(timePickerView)
-        
-        
     }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -126,13 +134,15 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
         let selectedDay = CalendarData.day(date: selecteDate)
         currentDate = CalendarData.getYMD(date: selecteDate)
         dateBtn.setTitle("\(selectedYear)年\(selectedMonth)月\(selectedDay)日", for: UIControlState.normal)
-        
-        let rect = CGRect(x: timeBtn.x, y: timeBtn.height - 2, width: timeBtn.width, height: 2)
-        dateBtn.isSelected = false
-        UIView.animate(withDuration: 0.33) {
-            self.cursorView.frame = rect
-            self.calendarView.x = -self.baseView.width
-            self.timePickerView.x = 0
+
+        if isAllowSelectTime == true {
+            let rect = CGRect(x: timeBtn.x, y: timeBtn.height - 2, width: timeBtn.width, height: 2)
+            dateBtn.isSelected = false
+            UIView.animate(withDuration: 0.33) {
+                self.cursorView.frame = rect
+                self.calendarView.x = -self.baseView.width
+                self.timePickerView.x = 0
+            }
         }
     }
     // MARK: - TimePickerViewDelegate
@@ -151,7 +161,11 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
         })
     }
     @objc private func clickOKBtn() {
-        selectedBack!(currentDate + " " + currentTime)
+        if isAllowSelectTime == true {
+            selectedBack!(currentDate + " " + currentTime)
+        } else {
+            selectedBack!(currentDate)
+        }
         close()
     }
     @objc private func close() {
