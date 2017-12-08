@@ -3,13 +3,13 @@
 
 近日发现钉钉的日期选择器使用时比较方便，就试着写了一个，基本实现功能并适当做了些优化，先看效果：
 <p align="center">
-<img src="https://github.com/qyfeng009/QTimePicker/blob/master/QTimePicker.gif" width="266" height="500"/>
+<img src="https://github.com/qyfeng009/QTimePicker/blob/master/QCalendarPicker.gif" width="266" height="500"/>
 </p>
 
 ###### 思路
-1、框架主要由三个部分组成：基础 QTimePicker, 日历模块 CalendarView, 时间选择模块 TimePickerView。
+1、框架主要由三个部分组成：基础 QCalendarPicker, 日历模块 CalendarView, 时间选择模块 TimePickerView。
 ```
-QTimePicker 负责作为基层负责显示界面、获取最终数据、底层基础操作等
+QCalendarPicker 负责作为基层负责显示界面、获取最终数据、底层基础操作等
 CalendarView 单独的日历模块，输出选中的日期，是 QTimePicker 主要部分
 TimePickerView 时间选择, 使用 UIDatePicker, 功能简单
 ```
