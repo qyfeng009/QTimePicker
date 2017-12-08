@@ -27,7 +27,7 @@ class ViewController: UIViewController {
             print(date)
             button.setTitle(date, for: UIControlState.normal)
         }
-        picker.isAllowSelectTime = false
+//        picker.isAllowSelectTime = false
         picker.show()
 
     }

@@ -21,9 +21,23 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
     private var currentDate: String!
     private var currentTime: String!
     private var cursorView: UIView!
-    private var calendarView: CalendarView!
-    private var timePickerView: TimePickerView!
     private var selectedBack: DidSelectedDate?
+
+    private lazy var calendarView: CalendarView! = {
+        var calendarViewH = baseView.height - dateBtn.height
+        if screenHeight == 812 {
+            calendarViewH = baseView.height - dateBtn.height - 34
+        }
+        let calendarView = CalendarView(frame: CGRect(x: 0, y: dateBtn.height, width: screenWidth, height: calendarViewH))
+        calendarView.delegate = self
+        return calendarView
+    }()
+    private lazy var timePickerView: TimePickerView! = {
+        let timePickerView = TimePickerView(frame: calendarView.frame)
+        timePickerView.x = baseView.width
+        timePickerView.delegate = self
+        return timePickerView
+    }()
     open var isAllowSelectTime: Bool? = true {
         didSet {
             if isAllowSelectTime == true {
@@ -86,18 +100,8 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
         cursorView.backgroundColor = hexColor(hex: 0x7D7F82)
         baseView.addSubview(cursorView)
         baseView.sendSubview(toBack: cursorView)
-        
-        var calendarViewH = baseView.height - dateBtn.height
-        if screenHeight == 812 {
-            calendarViewH = baseView.height - dateBtn.height - 34
-        }
-        calendarView = CalendarView(frame: CGRect(x: 0, y: dateBtn.height, width: screenWidth, height: calendarViewH))
-        calendarView.delegate = self
-        baseView.addSubview(calendarView)
-        timePickerView = TimePickerView(frame: calendarView.frame)
-        timePickerView.x = baseView.width
-        timePickerView.delegate = self
-        baseView.addSubview(timePickerView)
+
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -117,6 +121,9 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
                     self.timePickerView.x = self.baseView.width
                 }
             } else {
+                if !baseView.subviews.contains(timePickerView) {
+                    self.baseView.addSubview(self.timePickerView)
+                }
                 dateBtn.isSelected = false
                 let rect = CGRect(x: timeBtn.x, y: timeBtn.height - 2, width: timeBtn.width, height: 2)
                 UIView.animate(withDuration: 0.33) {
@@ -124,6 +131,7 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
                     self.calendarView.x = -self.baseView.width
                     self.timePickerView.x = 0
                 }
+
             }
         }
     }
@@ -136,6 +144,9 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
         dateBtn.setTitle("\(selectedYear)年\(selectedMonth)月\(selectedDay)日", for: UIControlState.normal)
 
         if isAllowSelectTime == true {
+            if !baseView.subviews.contains(timePickerView) {
+                self.baseView.addSubview(self.timePickerView)
+            }
             let rect = CGRect(x: timeBtn.x, y: timeBtn.height - 2, width: timeBtn.width, height: 2)
             dateBtn.isSelected = false
             UIView.animate(withDuration: 0.33) {
@@ -158,7 +169,10 @@ class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, Ti
         UIView.animate(withDuration: 0.21, animations: {
             self.baseView.transform = CGAffineTransform(translationX: 0, y:  -baseViewHeight)
             self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        })
+        }, completion: { (finish: Bool) in
+            self.baseView.addSubview(self.calendarView)
+        } )
+
     }
     @objc private func clickOKBtn() {
         if isAllowSelectTime == true {
