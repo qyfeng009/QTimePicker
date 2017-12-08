@@ -22,7 +22,7 @@ TimePickerView 时间选择, 使用 UIDatePicker, 功能简单
 ###### 使用
 使用很简单，把 QTimePicker.swift 拖入项目，使用以下代码就行
 ```
-let picker = QTimePicker { (date: String) in
+let picker = QCalendarPicker { (date: String) in
  print(date)      
 }
 picker.show()
