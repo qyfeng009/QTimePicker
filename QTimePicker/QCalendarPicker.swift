@@ -13,7 +13,7 @@ private let keyWindow = UIApplication.shared.keyWindow
 private let calendarItemWH: CGFloat = (screenWidth - 20 - 6 * 8) / 7
 private var baseViewHeight = 49 + 30 + 6 * calendarItemWH + 6 * 8
 typealias DidSelectedDate = (_ date: String) -> ()
-class QTimePicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, TimePickerViewDelegate {
+class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, TimePickerViewDelegate {
     
     private var baseView: UIView!
     private var dateBtn: UIButton!
@@ -529,7 +529,7 @@ class TimePickerView: UIView {
 
     var datePicker: UIDatePicker!
     weak var delegate: TimePickerViewDelegate?
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white

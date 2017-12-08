@@ -23,7 +23,7 @@ class ViewController: UIViewController {
 
     @IBAction func showBtn(_ sender: Any) {
         let button = sender as! UIButton
-        let picker = QTimePicker { (date: String) in
+        let picker = QCalendarPicker { (date: String) in
             print(date)
             button.setTitle(date, for: UIControlState.normal)
         }

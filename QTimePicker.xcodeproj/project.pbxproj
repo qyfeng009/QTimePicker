@@ -12,10 +12,11 @@
 		343B03891FD13EAC007ECDE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 343B03871FD13EAC007ECDE2 /* Main.storyboard */; };
 		343B038B1FD13EAC007ECDE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 343B038A1FD13EAC007ECDE2 /* Assets.xcassets */; };
 		343B038E1FD13EAC007ECDE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 343B038C1FD13EAC007ECDE2 /* LaunchScreen.storyboard */; };
-		343B03991FD1427C007ECDE2 /* QTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343B03981FD1427C007ECDE2 /* QTimePicker.swift */; };
+		343B03991FD1427C007ECDE2 /* QCalendarPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343B03981FD1427C007ECDE2 /* QCalendarPicker.swift */; };
 		3486A5351FD947F40082BA44 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3486A5321FD947F30082BA44 /* README.md */; };
-		3486A5361FD947F40082BA44 /* QTimePicker.swift.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3486A5331FD947F40082BA44 /* QTimePicker.swift.mp4 */; };
-		3486A5371FD947F40082BA44 /* QTimePicker.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3486A5341FD947F40082BA44 /* QTimePicker.gif */; };
+		34B870F41FDA7983000FFD0E /* QDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B870F31FDA7983000FFD0E /* QDatePicker.swift */; };
+		34B870F71FDA7C5D000FFD0E /* QCalendarPicker.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 34B870F51FDA7C5D000FFD0E /* QCalendarPicker.mp4 */; };
+		34B870F81FDA7C5D000FFD0E /* QCalendarPicker.gif in Resources */ = {isa = PBXBuildFile; fileRef = 34B870F61FDA7C5D000FFD0E /* QCalendarPicker.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +27,11 @@
 		343B038A1FD13EAC007ECDE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		343B038D1FD13EAC007ECDE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		343B038F1FD13EAC007ECDE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		343B03981FD1427C007ECDE2 /* QTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QTimePicker.swift; sourceTree = "<group>"; };
+		343B03981FD1427C007ECDE2 /* QCalendarPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCalendarPicker.swift; sourceTree = "<group>"; };
 		3486A5321FD947F30082BA44 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3486A5331FD947F40082BA44 /* QTimePicker.swift.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = QTimePicker.swift.mp4; sourceTree = "<group>"; };
-		3486A5341FD947F40082BA44 /* QTimePicker.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = QTimePicker.gif; sourceTree = "<group>"; };
+		34B870F31FDA7983000FFD0E /* QDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QDatePicker.swift; sourceTree = "<group>"; };
+		34B870F51FDA7C5D000FFD0E /* QCalendarPicker.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = QCalendarPicker.mp4; sourceTree = "<group>"; };
+		34B870F61FDA7C5D000FFD0E /* QCalendarPicker.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = QCalendarPicker.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,8 +48,8 @@
 		343B03771FD13EAC007ECDE2 = {
 			isa = PBXGroup;
 			children = (
-				3486A5341FD947F40082BA44 /* QTimePicker.gif */,
-				3486A5331FD947F40082BA44 /* QTimePicker.swift.mp4 */,
+				34B870F61FDA7C5D000FFD0E /* QCalendarPicker.gif */,
+				34B870F51FDA7C5D000FFD0E /* QCalendarPicker.mp4 */,
 				3486A5321FD947F30082BA44 /* README.md */,
 				343B03821FD13EAC007ECDE2 /* QTimePicker */,
 				343B03811FD13EAC007ECDE2 /* Products */,
@@ -65,7 +67,8 @@
 		343B03821FD13EAC007ECDE2 /* QTimePicker */ = {
 			isa = PBXGroup;
 			children = (
-				343B03981FD1427C007ECDE2 /* QTimePicker.swift */,
+				343B03981FD1427C007ECDE2 /* QCalendarPicker.swift */,
+				34B870F31FDA7983000FFD0E /* QDatePicker.swift */,
 				343B03831FD13EAC007ECDE2 /* AppDelegate.swift */,
 				343B03851FD13EAC007ECDE2 /* ViewController.swift */,
 				343B03871FD13EAC007ECDE2 /* Main.storyboard */,
@@ -136,10 +139,10 @@
 			files = (
 				343B038E1FD13EAC007ECDE2 /* LaunchScreen.storyboard in Resources */,
 				343B038B1FD13EAC007ECDE2 /* Assets.xcassets in Resources */,
+				34B870F81FDA7C5D000FFD0E /* QCalendarPicker.gif in Resources */,
+				34B870F71FDA7C5D000FFD0E /* QCalendarPicker.mp4 in Resources */,
 				3486A5351FD947F40082BA44 /* README.md in Resources */,
 				343B03891FD13EAC007ECDE2 /* Main.storyboard in Resources */,
-				3486A5361FD947F40082BA44 /* QTimePicker.swift.mp4 in Resources */,
-				3486A5371FD947F40082BA44 /* QTimePicker.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +153,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				343B03991FD1427C007ECDE2 /* QTimePicker.swift in Sources */,
+				343B03991FD1427C007ECDE2 /* QCalendarPicker.swift in Sources */,
+				34B870F41FDA7983000FFD0E /* QDatePicker.swift in Sources */,
 				343B03861FD13EAC007ECDE2 /* ViewController.swift in Sources */,
 				343B03841FD13EAC007ECDE2 /* AppDelegate.swift in Sources */,
 			);
