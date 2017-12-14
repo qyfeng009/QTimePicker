@@ -12,8 +12,9 @@ private let screenHeight = UIScreen.main.bounds.height
 private let keyWindow = UIApplication.shared.keyWindow
 private let calendarItemWH: CGFloat = (screenWidth - 20 - 6 * 8) / 7
 private var baseViewHeight = 49 + 30 + 6 * calendarItemWH + 6 * 8
-typealias DidSelectedDate = (_ date: String) -> ()
+
 class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, TimePickerViewDelegate {
+    typealias DidSelectedDate = (_ date: String) -> ()
     
     private var baseView: UIView!
     private var dateBtn: UIButton!
@@ -63,14 +64,14 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
         baseView = UIView(frame: CGRect(x: 0, y: screenHeight, width: screenWidth, height: baseViewHeight))
         baseView.transform = CGAffineTransform.identity
         self.addSubview(baseView)
-        baseView.backgroundColor = hexColor(hex: 0xF5F6F5)
+        baseView.backgroundColor = UIColor.hex(hex: 0xF5F6F5)
         
         let date = Date()
-        let year = CalendarData.year(date: date)
-        let month = CalendarData.month(date: date)
-        let day = CalendarData.day(date: date)
-        currentDate = CalendarData.getYMD(date: date)
-        currentTime = CalendarData.getHM(date: date)
+        let year = date.year
+        let month = date.month
+        let day = date.day
+        currentDate = date.formatterDate(formatter: "YYYY-MM-dd")
+        currentTime = date.formatterDate(formatter: "HH:mm")
         
         dateBtn = UIButton(frame: CGRect(x: 10, y: 0, width: 137, height: 49))
         dateBtn.setTitle("\(year)年\(month)月\(day)日", for: UIControlState.normal)
@@ -97,7 +98,7 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
         baseView.addSubview(okBtn)
         
         cursorView = UIView(frame: CGRect(x: dateBtn.x, y: dateBtn.height - 2, width: dateBtn.width, height: 2))
-        cursorView.backgroundColor = hexColor(hex: 0x7D7F82)
+        cursorView.backgroundColor = UIColor.hex(hex: 0x7D7F82)
         baseView.addSubview(cursorView)
         baseView.sendSubview(toBack: cursorView)
 
@@ -137,10 +138,10 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
     }
     // MARK: - CalendarViewDelegate
     func didSelectedDate(selecteDate: Date) {
-        let selectedYear = CalendarData.year(date: selecteDate)
-        let selectedMonth = CalendarData.month(date: selecteDate)
-        let selectedDay = CalendarData.day(date: selecteDate)
-        currentDate = CalendarData.getYMD(date: selecteDate)
+        let selectedYear = selecteDate.year
+        let selectedMonth = selecteDate.month
+        let selectedDay = selecteDate.day
+        currentDate = selecteDate.formatterDate(formatter: "YYYY-MM-dd")
         dateBtn.setTitle("\(selectedYear)年\(selectedMonth)月\(selectedDay)日", for: UIControlState.normal)
 
         if isAllowSelectTime == true {
@@ -226,11 +227,11 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         collectionView.isPagingEnabled = true
         addSubview(collectionView)
         yearLbl = UILabel(frame: collectionView.bounds)
-        yearLbl.textColor = hexColor(hex: 0xE9EDF2)
+        yearLbl.textColor = UIColor.hex(hex: 0xE9EDF2)
         yearLbl.font = UIFont(name: "DB LCD Temp", size: 110)
         yearLbl.textAlignment = NSTextAlignment.center
         yearLbl.adjustsFontSizeToFitWidth = true
-        yearLbl.text = "\(CalendarData.year(date: currentDate))"
+        yearLbl.text = "\(currentDate.year)"
         addSubview(yearLbl)
         sendSubview(toBack: yearLbl)
         
@@ -258,16 +259,16 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CalendarCell
         
-        let daysInThisMonth = CalendarData.totalDaysInThisMonth(date: currentDate)
-        let firstWeekDay = CalendarData.firstWeekDayInThisMonth(date: currentDate)
-        let currentMonth = CalendarData.month(date: currentDate)
-        let currentYear = CalendarData.year(date: currentDate)
-        let lastMonthDate = CalendarData.lastMonth(date: currentDate)
-        let lastMonth = CalendarData.month(date: lastMonthDate)
-        let daysInLastMonth = CalendarData.totalDaysInThisMonth(date: lastMonthDate)
-        let nextMonthDate = CalendarData.nextMonth(date: currentDate)
-        let nextMonth = CalendarData.month(date: nextMonthDate)
-        let daysInNextMonth = CalendarData.totalDaysInThisMonth(date: nextMonthDate)
+        let daysInThisMonth = currentDate.totalDaysInThisMonth
+        let firstWeekDay = currentDate.firstWeekDayInThisMonth
+        let currentMonth = currentDate.month
+        let currentYear = currentDate.year
+        let lastMonthDate = currentDate.lastMonth
+        let lastMonth = lastMonthDate.month
+        let daysInLastMonth = lastMonthDate.totalDaysInThisMonth
+        let nextMonthDate = currentDate.nextMonth
+        let nextMonth = nextMonthDate.month
+        let daysInNextMonth = nextMonthDate.totalDaysInThisMonth
         
         let i = (indexPath.row - 42)
         
@@ -276,8 +277,8 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             if lastDay == 1 {
                 cell.text = "\(lastMonth)月"
             } else if lastDay <= 0 {
-                let doubleLastMonthDate = CalendarData.lastMonth(date: lastMonthDate)
-                let daysInDoubleLastMonth = CalendarData.totalDaysInThisMonth(date: doubleLastMonthDate)
+                let doubleLastMonthDate = lastMonthDate.lastMonth
+                let daysInDoubleLastMonth = doubleLastMonthDate.totalDaysInThisMonth
                 cell.text = "\(daysInDoubleLastMonth + lastDay)"
             } else {
                 cell.text = String(lastDay)
@@ -310,37 +311,37 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.isUserInteractionEnabled = false
         } else {
             let currentDay = (i - firstWeekDay + 1)
-            if currentDay == CalendarData.day(date: Date())
-                && currentMonth == CalendarData.month(date: Date())
-                && currentYear == CalendarData.year(date: Date()) {
+            if currentDay == Date().day
+                && currentMonth == Date().month
+                && currentYear == Date().year {
                 cell.text = String(currentDay)
-                if currentDay == CalendarData.day(date: selectedDay)
-                    && currentMonth == CalendarData.month(date: selectedDay)
-                    && currentYear == CalendarData.year(date: selectedDay) {
-                    cell.backgroundColor = hexColor(hex: 0x7D7F82)
+                if currentDay == selectedDay.day
+                    && currentMonth == selectedDay.month
+                    && currentYear == selectedDay.year {
+                    cell.backgroundColor = UIColor.hex(hex: 0x7D7F82)
                     cell.textColor = .white
                 } else {
-                    cell.backgroundColor = hexColor(hex: 0xE9F3FE)
-                    cell.textColor = hexColor(hex: 0x297DFF)
+                    cell.backgroundColor = UIColor.hex(hex: 0xE9F3FE)
+                    cell.textColor = UIColor.hex(hex: 0x297DFF)
                 }
             } else {
                 if currentDay == 1 {
                     cell.text = String(currentMonth) + "月"
-                    if currentDay == CalendarData.day(date: selectedDay)
-                        && currentMonth == CalendarData.month(date: selectedDay)
-                        && currentYear == CalendarData.year(date: selectedDay) {
+                    if currentDay == selectedDay.day
+                        && currentMonth == selectedDay.month
+                        && currentYear == selectedDay.year {
                         cell.textColor = .white
-                        cell.backgroundColor = hexColor(hex: 0x7D7F82)
+                        cell.backgroundColor = UIColor.hex(hex: 0x7D7F82)
                     } else {
-                        cell.textColor = hexColor(hex: 0x297DFF)
+                        cell.textColor = UIColor.hex(hex: 0x297DFF)
                         cell.backgroundColor = UIColor.clear
                     }
                 } else {
-                    if currentDay == CalendarData.day(date: selectedDay)
-                        && currentMonth == CalendarData.month(date: selectedDay)
-                        && currentYear == CalendarData.year(date: selectedDay) {
+                    if currentDay == selectedDay.day
+                        && currentMonth == selectedDay.month
+                        && currentYear == selectedDay.year {
                         cell.textColor = .white
-                        cell.backgroundColor = hexColor(hex: 0x7D7F82)
+                        cell.backgroundColor = UIColor.hex(hex: 0x7D7F82)
                     } else {
                         cell.textColor = .black
                         cell.backgroundColor = UIColor.clear
@@ -354,14 +355,14 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     /// 上次选中的日期, 默认初始值为当前日期
-    var lastSelected: NSInteger! = (42 + CalendarData.firstWeekDayInThisMonth(date: Date()) - 1 + CalendarData.day(date: Date()))
+    var lastSelected: NSInteger! = (42 + Date().firstWeekDayInThisMonth - 1 + Date().day)
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 计算选中的日期
-        let firstWeekDay = CalendarData.firstWeekDayInThisMonth(date: currentDate)
+        let firstWeekDay = currentDate.firstWeekDayInThisMonth
         let clickDay = (indexPath.row - 42 - firstWeekDay + 1)
         
         var dateComponents = DateComponents()
-        dateComponents.day = -CalendarData.day(date: currentDate) + clickDay
+        dateComponents.day = -currentDate.day + clickDay
         let clickDate = Calendar.current.date(byAdding: dateComponents, to: currentDate)
         selectedDay = clickDate
         delegate?.didSelectedDate(selecteDate: clickDate!)
@@ -382,18 +383,18 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let direction = lroundf(Float(collectionView.contentOffset.y / collectionView.height))
         
         if direction == 0 {
-            self.currentDate = CalendarData.lastMonth(date: self.currentDate)
+            self.currentDate = self.currentDate.lastMonth
             reseData()
         }
         if direction == 2 {
-            self.currentDate = CalendarData.nextMonth(date: self.currentDate)
+            self.currentDate = self.currentDate.nextMonth
             reseData()
         }
     }
     func reseData() {
         collectionView.setContentOffset(CGPoint(x: 0, y: (self.height - 30)*1), animated: false)
         collectionView.reloadData()
-        self.yearLbl.text = "\(CalendarData.year(date: self.currentDate))"
+        self.yearLbl.text = "\(self.currentDate.year)"
     }
     
 }
@@ -451,74 +452,6 @@ class CalendarCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-// MARK: - 日历数据
-/// 日历数据
-class CalendarData: NSObject {
-    class func second(date: Date) -> NSInteger {
-        return components(date: date).second!
-    }
-    class func minute(date: Date) -> NSInteger {
-        return components(date: date).minute!
-    }
-    class func hour(date: Date) -> NSInteger {
-        return components(date: date).hour!
-    }
-    class func day(date: Date) -> NSInteger {
-        return components(date: date).day!
-    }
-    class func month(date: Date) -> NSInteger {
-        return components(date: date).month!
-    }
-    class func year(date: Date) -> NSInteger {
-        return components(date: date).year!
-    }
-    class func firstWeekDayInThisMonth(date: Date) -> NSInteger {
-        var calendar = Calendar.current
-        let componentsSet = Set<Calendar.Component>([.year, .month, .day])
-        var components = calendar.dateComponents(componentsSet, from: date)
-        
-        calendar.firstWeekday = 1
-        components.day = 1
-        let first = calendar.date(from: components)
-        let firstWeekDay = calendar.ordinality(of: .weekday, in: .weekOfMonth, for: first!)
-        return firstWeekDay! - 1
-    }
-    class func totalDaysInThisMonth(date: Date) -> NSInteger {
-        let totalDays = Calendar.current.range(of: .day, in: .month, for: date)
-        return (totalDays?.count)!
-    }
-    class func lastMonth(date: Date) -> Date {
-        var dateComponents = DateComponents()
-        dateComponents.month = -1
-        let newData = Calendar.current.date(byAdding: dateComponents, to: date)
-        return newData!
-    }
-    class func nextMonth(date: Date) -> Date {
-        var dateComponents = DateComponents()
-        dateComponents.month = +1
-        let newData = Calendar.current.date(byAdding: dateComponents, to: date)
-        return newData!
-    }
-    
-    class func components(date: Date) -> DateComponents {
-        let calendar = Calendar.current
-        let componentsSet = Set<Calendar.Component>([.year, .month, .day, .hour, .minute])
-        let components = calendar.dateComponents(componentsSet, from: date)
-        return components
-    }
-    class func getYMD(date: Date) -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "YYYY-MM-dd"
-        let ymd = dateformatter.string(from: date)
-        return ymd
-    }
-    class func getHM(date: Date) -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "HH:mm"
-        let hm = dateformatter.string(from: date)
-        return hm
-    }
-}
 
 //***************************< 以下时间选择模块 >**********************************
 // MARK: -  时间选择模块
@@ -554,76 +487,5 @@ class TimePickerView: UIView {
     }
 }
 
-//******************************************************************************
-// MARK: - 16进制色值转RGB色值
-/// 16进制色值转RGB色值
-///
-/// - Parameter hex: 16进制色值，样式为 0x000000
-/// - Returns: 返回 UIColor
-private func hexColor(hex: Int) -> UIColor {
-    return UIColor(red: CGFloat((Double((hex & 0xFF0000) >> 16)) / 255.0), green: CGFloat((Double((hex & 0xFF00) >> 8)) / 255.0), blue: CGFloat((Double((hex & 0xFF))) / 255.0), alpha: 1.0)
-}
 
-// MARK: - UIView 的坐标扩展
-private extension UIView {
-    var x: CGFloat {
-        set {
-            var frame = self.frame
-            frame.origin.x = newValue
-            self.frame = frame
-        }
-        get {
-            return self.frame.origin.x
-        }
-    }
-    var y: CGFloat {
-        set {
-            var frame = self.frame
-            frame.origin.y = newValue
-            self.frame = frame
-        }
-        get {
-            return self.frame.origin.y
-        }
-    }
-    var centerX: CGFloat {
-        set {
-            var center = self.center
-            center.x = newValue
-            self.center = center
-        }
-        get {
-            return self.center.x
-        }
-    }
-    var centerY: CGFloat {
-        set {
-            var center = self.center
-            center.y = newValue
-            self.center = center
-        }
-        get {
-            return self.center.y
-        }
-    }
-    var width: CGFloat {
-        set {
-            var frame = self.frame
-            frame.size.width = newValue
-            self.frame = frame
-        }
-        get {
-            return self.frame.size.width
-        }
-    }
-    var height: CGFloat {
-        set {
-            var frame = self.frame
-            frame.size.height = newValue
-            self.frame = frame
-        }
-        get {
-            return self.frame.size.height
-        }
-    }
-}
+
