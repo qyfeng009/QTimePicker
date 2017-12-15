@@ -30,7 +30,7 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
         case styleOptional // 可选弹出样式
     }
 
-    typealias DidSelectedDate = (_ date: String) -> () ///< 定义确认回调
+    typealias DidSelectedDate = (_ date: String) -> Void ///< 定义确认回调
     private var selectedBack: DidSelectedDate?
     var sureView: UIButton!
     var yearL: UILabel!
@@ -51,7 +51,7 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             sureView.backgroundColor = themeColor
         }
     }
-    open var singlePickerDatas: Array<String> = [] {
+    open var singlePickerDatas: [String] = [] {
         didSet {
             singleSelectedData = singlePickerDatas[0]
         }
@@ -113,7 +113,7 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             var duraton = 0.8
             var y = -(margin + yearLH + sureVH)
             if screenHeight == 812 {
-                y = y - 34
+                y -= 34
                 duraton = 1.0
             }
             UIView.animate(withDuration: duraton, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
@@ -155,11 +155,11 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             var duraton = 0.21
             var y = -(margin + yearLH + sureVH) + 20
             if screenHeight == 812 {
-                y = y - 34
+                y -= 34
                 duraton = 0.27
             }
             UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 0.3, initialSpringVelocity: 21, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
-                self.yearL.transform = CGAffineTransform(translationX: 0, y:  y)
+                self.yearL.transform = CGAffineTransform(translationX: 0, y: y)
             })
             UIView.animate(withDuration: duraton, delay: 0.36, animations: {
                 self.sureView.transform  = CGAffineTransform.identity
@@ -184,19 +184,14 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             switch datePickerStyle {
             case .YMDHM:
                 string = intentDate.formatterDate(formatter: "yyyy-MM-dd HH:mm")
-                break
             case .YMD:
                 string = intentDate.formatterDate(formatter: "yyyy-MM-dd")
-                break
             case .MDHM:
                 string = intentDate.formatterDate(formatter: "yyyy-MM-dd HH:mm")
-                break
             case .MD:
                 string = intentDate.formatterDate(formatter: "yyyy-MM-dd")
-                break
             case .HM:
                 string = intentDate.formatterDate(formatter: "yyyy-MM-dd HH:mm")
-                break
             }
         }
         if pickerStyle == .singlePicker {
@@ -220,19 +215,14 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             switch datePickerStyle {
             case .YMDHM:
                 num = 5
-                break
             case .YMD:
                 num = 3
-                break
             case .MDHM:
                 num = 4
-                break
             case .MD:
                 num = 2
-                break
             case .HM:
                 num = 2
-                break
             }
         }
         if pickerStyle == .singlePicker {
@@ -273,7 +263,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 if component == 4 {
                     title = String(format: "%02d", minuteArray[row])
                 }
-                break
             case .YMD:
                 addLabel(tags: ["年", "月", "日"])
                 if component == 0 {
@@ -285,7 +274,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 if component == 2 {
                     title = String(format: "%02d", dayArray[row])
                 }
-                break
             case .MDHM:
                 addLabel(tags: ["月", "日", "时", "分"])
                 if component == 0 {
@@ -300,7 +288,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 if component == 3 {
                     title = String(format: "%02d", minuteArray[row])
                 }
-                break
             case .MD:
                 addLabel(tags: ["月", "日"])
                 if component == 0 {
@@ -309,7 +296,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 if component == 1 {
                     title = String(format: "%02d", dayArray[row])
                 }
-                break
             case .HM:
                 addLabel(tags: ["时", "分"])
                 if component == 0 {
@@ -318,7 +304,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 if component == 1 {
                     title = String(format: "%02d", minuteArray[row])
                 }
-                break
             }
         }
         if pickerStyle == .singlePicker {
@@ -330,7 +315,7 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
         label.text = title
         return label
     }
-    func addLabel(tags: Array<String>) {
+    func addLabel(tags: [String]) {
         for subView in yearL.subviews {
             if subView is UILabel {
                 subView.removeFromSuperview()
@@ -377,7 +362,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                         dayIndex = dayArray.count - 1
                     }
                 }
-                break
             case .YMD:
                 if component == 0 {
                     yearIndex = row
@@ -395,7 +379,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                         dayIndex = dayArray.count - 1
                     }
                 }
-                break
             case .MDHM:
                 if component == 1 {
                     dayIndex = row
@@ -413,7 +396,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                         dayIndex = dayArray.count - 1
                     }
                 }
-                break
             case .MD:
                 if component == 1 {
                     dayIndex = row
@@ -425,7 +407,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                         dayIndex = dayArray.count - 1
                     }
                 }
-                break
             case .HM:
                 if component == 0 {
                     hourIndex = row
@@ -433,7 +414,6 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 if component == 1 {
                     minuteIndex = row
                 }
-                break
             }
 
             pickerView.reloadAllComponents()
@@ -455,9 +435,11 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
     }
     func yearChange(row: NSInteger) {
         monthIndex = row%12
-        if (row - supMonthIndex) < 12 && (row - supMonthIndex) > 0 && monthArray[monthIndex] < monthArray[supMonthIndex%12] {
+        if (row - supMonthIndex) < 12 && (row - supMonthIndex) > 0
+            && monthArray[monthIndex] < monthArray[supMonthIndex%12] {
             yearIndex += 1
-        } else if (supMonthIndex - row) < 12 && (supMonthIndex - row) > 0 && monthArray[monthIndex] > monthArray[supMonthIndex%12] {
+        } else if (supMonthIndex - row) < 12 && (supMonthIndex - row) > 0
+            && monthArray[monthIndex] > monthArray[supMonthIndex%12] {
             yearIndex -= 1
         } else {
             let interval = (row - supMonthIndex)/12
@@ -476,7 +458,7 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
 
         supMonthIndex = (intentDate.year - minYear)*12 + (intentDate.month - 1)
 
-        var indexArray = Array<Int>()
+        var indexArray = [Int]()
         if datePickerStyle == .YMDHM {
             indexArray = [yearIndex, monthIndex, dayIndex, hourIndex, minuteIndex]
         }
@@ -514,11 +496,11 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
     let maxYear = Date().year + 60
     let minYear = Date().year - 60
     var intentDate = Date() // 设置要滚动到的意向日期,如默认日期、限制日期
-    var yearArray = Array<Int>()
-    var monthArray = Array<Int>()
-    var dayArray = Array<Int>()
-    var hourArray = Array<Int>()
-    var minuteArray = Array<Int>()
+    var yearArray = [Int]()
+    var monthArray = [Int]()
+    var dayArray = [Int]()
+    var hourArray = [Int]()
+    var minuteArray = [Int]()
 
     var yearIndex = 0
     var monthIndex = 0
@@ -541,7 +523,8 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             yearArray.append(i)
         }
         let caleddar = Calendar(identifier: Calendar.Identifier.gregorian)
-        let comps = caleddar.dateComponents(Set<Calendar.Component>([.year, .month, .day, .hour, .minute]), from: Date())
+        let component = Set<Calendar.Component>([.year, .month, .day, .hour, .minute])
+        let comps = caleddar.dateComponents(component, from: Date())
         let year = comps.year
         if maxLimitDate == nil {
             maxLimitDate = String(format: "%ld-12-31 23:59", year! + 10).toDate(formatter: "yyyy-MM-dd HH:mm")
@@ -551,50 +534,42 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
         }
     }
 
-    func getNumberOfRowsInComponent() -> Array<NSInteger> {
+    func getNumberOfRowsInComponent() -> [NSInteger] {
         dayArray = daysInTheDate(year: yearArray[yearIndex], month: monthArray[monthIndex])
         let timeInterval = maxYear - minYear
-        var rows = Array<NSInteger>()
+        var rows = [NSInteger]()
         switch datePickerStyle {
         case .YMDHM:
             rows = [yearArray.count, monthArray.count, dayArray.count, hourArray.count, minuteArray.count]
-            break
         case .YMD:
             rows = [yearArray.count, monthArray.count, dayArray.count]
-            break
         case .MDHM:
             rows = [monthArray.count*timeInterval, dayArray.count, hourArray.count, minuteArray.count]
-            break
         case .MD:
             rows = [monthArray.count*timeInterval, dayArray.count]
-            break
         case .HM:
             rows = [hourArray.count, minuteArray.count]
-            break
         }
         return rows
     }
-    func daysInTheDate(year: NSInteger, month: NSInteger) -> Array<Int> {
+    func daysInTheDate(year: NSInteger, month: NSInteger) -> [Int] {
         let isLeapYear = year%4==0 ? (year%100==0 ? (year%400==0 ? true : false) : true) : false
         var days = 0
         switch month {
         case 1, 3, 5, 7, 8, 10, 12:
             days = 31
-            break
         case 4, 6, 9, 11:
             days = 30
-            break
         case 2:
             if isLeapYear {
                 days = 29
             } else {
                 days = 28
             }
-            break
         default:
             break
         }
-        var array = Array<Int>()
+        var array = [Int]()
         for i in 1...days {
             array.append(i)
         }

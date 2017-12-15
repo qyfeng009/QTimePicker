@@ -173,7 +173,7 @@ extension UIView {
     ///   - locations: 每个颜色所在的位置(0为开始位...1为结束位)
     ///   - startPoint: 开始坐标[0...1]
     ///   - endPoint: 结束坐标[0...1]
-    func gradientColor(colors: Array<CGColor>, locations: Array<NSNumber>, startPoint: CGPoint, endPoint: CGPoint) {
+    func gradientColor(colors: [CGColor], locations: [NSNumber], startPoint: CGPoint, endPoint: CGPoint) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = colors
         gradientLayer.locations = locations

@@ -14,7 +14,7 @@ private let calendarItemWH: CGFloat = (screenWidth - 20 - 6 * 8) / 7
 private var baseViewHeight = 49 + 30 + 6 * calendarItemWH + 6 * 8
 
 class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate, TimePickerViewDelegate {
-    typealias DidSelectedDate = (_ date: String) -> ()
+    typealias DidSelectedDate = (_ date: String) -> Void
     
     private var baseView: UIView!
     private var dateBtn: UIButton!
@@ -368,7 +368,7 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         delegate?.didSelectedDate(selecteDate: clickDate!)
         
         // 刷新上次选中和当前选中的items
-        var arr = Array<IndexPath>()
+        var arr = [IndexPath]()
         if lastSelected != indexPath.row {
             arr.append(IndexPath(item: lastSelected, section: 0))
         }
@@ -454,7 +454,7 @@ class CalendarCell: UICollectionViewCell {
 }
 
 //***************************< 以下时间选择模块 >**********************************
-// MARK: -  时间选择模块
+// MARK: - 时间选择模块
 protocol TimePickerViewDelegate:NSObjectProtocol {
     func selectedTime(time: String)
 }

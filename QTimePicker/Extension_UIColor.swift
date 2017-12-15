@@ -40,31 +40,26 @@ extension UIColor {
             red = colorComponent(hex: colorString, start: 0, length: 1)
             green = colorComponent(hex: colorString, start: 1, length: 1)
             blue = colorComponent(hex: colorString, start: 2, length: 1)
-            break
         case 4: // #ARGB
             alpha = colorComponent(hex: colorString, start: 0, length: 1)
             red = colorComponent(hex: colorString, start: 1, length: 1)
             green = colorComponent(hex: colorString, start: 2, length: 1)
             blue = colorComponent(hex: colorString, start: 3, length: 1)
-            break
         case 6: // #RRGGBB
             alpha = 1.0
             red = colorComponent(hex: colorString, start: 0, length: 2)
             green = colorComponent(hex: colorString, start: 2, length: 2)
             blue = colorComponent(hex: colorString, start: 4, length: 2)
-            break
         case 8: // #AARRGGBB
             alpha = colorComponent(hex: colorString, start: 0, length: 2)
             red = colorComponent(hex: colorString, start: 2, length: 2)
             green = colorComponent(hex: colorString, start: 4, length: 2)
             blue = colorComponent(hex: colorString, start: 6, length: 2)
-            break
         default:
             alpha =  0
             red = 0
             green = 0
             blue = 0
-            break
         }
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
@@ -102,7 +97,7 @@ extension UIColor {
     }
     // MARK: - 获取 UIColor 的 rgba 值
     /// 获取 UIColor 的 rgba 值
-    var rgba: Array<Int> {
+    var rgba: [Int] {
         get {
             var red: CGFloat = 0
             var green: CGFloat = 0

@@ -17,9 +17,9 @@ extension String {
     /// - Returns: 截取的 String
     func substring(to index: Int) -> String {
         guard let end_Index = validEndIndex(original: index) else {
-            return self;
+            return self
         }
-        return String(self[startIndex..<end_Index]);
+        return String(self[startIndex..<end_Index])
     }
     /// 截取字符串从index到结束
     ///
@@ -35,7 +35,7 @@ extension String {
     ///
     /// - Parameter range: 截取的区间范围
     /// - Returns: 截取的 String
-    func sliceString(_ range:CountableRange<Int>)->String{
+    func sliceString(_ range:CountableRange<Int>) -> String {
         guard
             let startIndex = validStartIndex(original: range.lowerBound),
             let endIndex   = validEndIndex(original: range.upperBound),
@@ -49,7 +49,7 @@ extension String {
     ///
     /// - Parameter range: 截取的区间范围
     /// - Returns: 截取的 String
-    func sliceString(_ range:CountableClosedRange<Int>)->String{
+    func sliceString(_ range:CountableClosedRange<Int>) -> String {
         guard
             let start_Index = validStartIndex(original: range.lowerBound),
             let end_Index   = validEndIndex(original: range.upperBound),
@@ -57,7 +57,7 @@ extension String {
             else {
                 return ""
         }
-        if(endIndex.encodedOffset <= end_Index.encodedOffset){
+        if(endIndex.encodedOffset <= end_Index.encodedOffset) {
             return String(self[start_Index..<endIndex])
         }
         return String(self[start_Index...end_Index])

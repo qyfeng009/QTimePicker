@@ -59,29 +59,27 @@ class ViewController: UIViewController {
 
 
     @IBAction func showBtn(_ sender: Any) {
-        let button = sender as! UIButton
+        let button = sender as? UIButton
         let picker = QCalendarPicker { (date: String) in
             print(date)
-            button.setTitle(date, for: UIControlState.normal)
+            button?.setTitle(date, for: UIControlState.normal)
         }
         //        picker.isAllowSelectTime = false
         picker.show()
     }
     @IBAction func showQDatePickerBtn(_ sender: Any) {
-        let button = sender as! UIButton
+        let button = sender as? UIButton
         let picker = QDatePicker { (date: String) in
             print(date)
-            button.setTitle(date, for: UIControlState.normal)
+            button?.setTitle(date, for: UIControlState.normal)
         }
-//        picker.datePickerStyle = .YMDHM
-        picker.themeColor = .red
-        picker.pickerStyle = .singlePicker
-        picker.animationStyle = .styleOptional
-        picker.singlePickerDatas = ["小新", "小徹", "阿呆", "正男", "妮妮", "小白", "娜娜子®"]
+//        picker.datePickerStyle = .MDHM
+//        picker.themeColor = .red
+//        picker.pickerStyle = .singlePicker
+//        picker.animationStyle = .styleOptional
+//        picker.singlePickerDatas = ["小新", "小徹", "阿呆", "正男", "妮妮", "小白", "娜娜子®"]
         picker.show()
     }
-
-
 
 }
 
