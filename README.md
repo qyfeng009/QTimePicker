@@ -4,6 +4,8 @@
 近日发现钉钉的日期选择器使用时比较方便，就试着写了一个，基本实现功能并适当做了些优化，先看效果：
 <p align="center">
 <img src="https://github.com/qyfeng009/QTimePicker/blob/master/QCalendarPicker.gif" width="266" height="500"/>
+<img src="https://github.com/qyfeng009/QTimePicker/blob/master/QDatePicker.gif" width="266" height="500"/>
+<img src="https://github.com/qyfeng009/QTimePicker/blob/master/QDatePicker3.gif" width="266" height="500"/>
 </p>
 
 ###### 思路
@@ -26,4 +28,43 @@ let picker = QCalendarPicker { (date: String) in
  print(date)      
 }
 picker.show()
+```
+
+# QDatePicker
+新增传统的日期选择器(样式如上图)
+```
+支持两种选择模式
+enum QPickerStyle {
+        case datePicker   // 时间选择器
+        case singlePicker // 单项选择器
+}
+    
+datePicker 模式下 支持一下日期样式
+enum DatePickerStyle { // 此只在 datePicker 下生效
+        case YMDHM     // 选择 年月日时分
+        case YMD       // 选择 年月日
+        case MDHM      // 选择 月日时分
+        case MD        // 选择 月日
+        case HM        // 选择 时分
+}
+    
+可选弹出动画样式
+enum AminationStyle {
+        case styleDefault   // 默认弹出样式
+        case styleOptional  // 可选弹出样式
+ }
+```
+###### 使用
+使用很简单，把 QDatePicker.swift 拖入项目，使用以下代码就行
+datePicker模式下的选项 和 singlePicker 模式下的选项互斥
+```
+let picker = QDatePicker { (date: String) in
+            print(date)
+        }
+        picker.datePickerStyle = .YMDHM
+        picker.themeColor = .red
+        picker.pickerStyle = .singlePicker
+        picker.animationStyle = .styleOptional
+        picker.singlePickerDatas = ["小新", "小徹", "阿呆", "正男", "妮妮", "小白", "娜娜子®"]
+        picker.show()
 ```
