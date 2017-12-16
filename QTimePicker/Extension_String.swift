@@ -35,7 +35,7 @@ extension String {
     ///
     /// - Parameter range: 截取的区间范围
     /// - Returns: 截取的 String
-    func sliceString(_ range:CountableRange<Int>) -> String {
+    func sliceString(_ range: CountableRange<Int>) -> String {
         guard
             let startIndex = validStartIndex(original: range.lowerBound),
             let endIndex   = validEndIndex(original: range.upperBound),
@@ -49,7 +49,7 @@ extension String {
     ///
     /// - Parameter range: 截取的区间范围
     /// - Returns: 截取的 String
-    func sliceString(_ range:CountableClosedRange<Int>) -> String {
+    func sliceString(_ range: CountableClosedRange<Int>) -> String {
         guard
             let start_Index = validStartIndex(original: range.lowerBound),
             let end_Index   = validEndIndex(original: range.upperBound),
@@ -57,12 +57,12 @@ extension String {
             else {
                 return ""
         }
-        if(endIndex.encodedOffset <= end_Index.encodedOffset) {
+        if endIndex.encodedOffset <= end_Index.encodedOffset {
             return String(self[start_Index..<endIndex])
         }
         return String(self[start_Index...end_Index])
     }
-    //MARK:-校验字符串位置 是否合理，并返回String.Index
+    // MARK: - 校验字符串位置 是否合理，并返回String.Index
     private func validIndex(original: Int) -> String.Index {
         switch original {
         case ...startIndex.encodedOffset : return startIndex
@@ -70,17 +70,16 @@ extension String {
         default                          : return index(startIndex, offsetBy: original)
         }
     }
-    //MARK:-校验是否是合法的起始位置
+    // MARK: - 校验是否是合法的起始位置
     private func validStartIndex(original: Int) -> String.Index? {
         guard original <= endIndex.encodedOffset else { return nil }
-        return validIndex(original:original)
+        return validIndex(original: original)
     }
-    //MARK:-校验是否是合法的结束位置
+    // MARK: - 校验是否是合法的结束位置
     private func validEndIndex(original: Int) -> String.Index? {
         guard original >= startIndex.encodedOffset else { return nil }
-        return validIndex(original:original)
+        return validIndex(original: original)
     }
-
 
     /// 字符串时间转 Date
     ///

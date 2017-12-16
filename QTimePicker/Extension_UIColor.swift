@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-
+    
     // MARK: - 16进制色值(0x000000) -> UIColor
     /// 16进制色值(0x000000) -> UIColor
     ///
@@ -73,20 +73,18 @@ extension UIColor {
     // MARK: - 获取 UIColor 的 16进制色值(#000000)
     /// 获取 UIColor 的 16进制色值(#000000)
     var hex: String {
-        get {
-            var color = self
-            if color.cgColor.numberOfComponents < 4 {
-                let components = color.cgColor.components
-                
-                color = UIColor(red: components![0], green: components![0], blue: components![0], alpha: components![1])
-            }
-            if color.cgColor.colorSpace?.model != CGColorSpaceModel.rgb {
-                return "#FFFFFF"
-            }
-            return String(format: "#%02X%02X%02X", Int(color.cgColor.components![0]*255.0), Int(color.cgColor.components![1]*255.0), Int(color.cgColor.components![2]*255.0))
+        var color = self
+        if color.cgColor.numberOfComponents < 4 {
+            let components = color.cgColor.components
+            
+            color = UIColor(red: components![0], green: components![0], blue: components![0], alpha: components![1])
         }
+        if color.cgColor.colorSpace?.model != CGColorSpaceModel.rgb {
+            return "#FFFFFF"
+        }
+        return String(format: "#%02X%02X%02X", Int(color.cgColor.components![0]*255.0), Int(color.cgColor.components![1]*255.0), Int(color.cgColor.components![2]*255.0))
     }
-
+    
     // MARK: - RGB -> UIColor
     class func rgba(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {
         return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: alpha)
@@ -98,14 +96,12 @@ extension UIColor {
     // MARK: - 获取 UIColor 的 rgba 值
     /// 获取 UIColor 的 rgba 值
     var rgba: [Int] {
-        get {
-            var red: CGFloat = 0
-            var green: CGFloat = 0
-            var blue: CGFloat = 0
-            var alpha: CGFloat = 0
-            self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-            return [Int(red*255.0), Int(green*255.0), Int(blue*255.0), Int(alpha)]
-        }
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        return [Int(red*255.0), Int(green*255.0), Int(blue*255.0), Int(alpha)]
     }
     // MARK: - 随机色
     /// 随机色
@@ -118,7 +114,7 @@ extension UIColor {
         let color = UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
         return color
     }
-
     
-
+    
+    
 }
