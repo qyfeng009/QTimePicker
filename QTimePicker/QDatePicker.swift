@@ -484,8 +484,10 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             if (datePickerStyle == .MDHM || datePickerStyle == .MD) && i == 0 {
 
                 pickerView.selectRow(supMonthIndex, inComponent: i, animated: true)
+                pickerView(pickerView, didSelectRow: supMonthIndex, inComponent: i)
             } else {
                 pickerView.selectRow(indexArray[i], inComponent: i, animated: true)
+                pickerView(pickerView, didSelectRow: indexArray[i], inComponent: i)
             }
         }
     }
