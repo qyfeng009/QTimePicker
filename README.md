@@ -4,8 +4,8 @@
 近日发现钉钉的日期选择器使用时比较方便，就试着写了一个，基本实现功能并适当做了些优化，先看效果：
 <p align="center">
 <img src="https://github.com/qyfeng009/QTimePicker/blob/master/QCalendarPicker.gif" width="266" height="500"/>
+<img src="https://github.com/qyfeng009/QTimePicker/blob/master/QCalendarPickerX.gif" width="266" height="500"/>
 <img src="https://github.com/qyfeng009/QTimePicker/blob/master/QDatePicker.gif" width="266" height="500"/>
-<img src="https://github.com/qyfeng009/QTimePicker/blob/master/QDatePicker3.gif" width="266" height="500"/>
 </p>
 
 ###### 思路
