@@ -21,6 +21,7 @@
 		34B870F71FDA7C5D000FFD0E /* QCalendarPicker.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 34B870F51FDA7C5D000FFD0E /* QCalendarPicker.mp4 */; };
 		34B870F81FDA7C5D000FFD0E /* QCalendarPicker.gif in Resources */ = {isa = PBXBuildFile; fileRef = 34B870F61FDA7C5D000FFD0E /* QCalendarPicker.gif */; };
 		34D3E4021FE0B8CD005D40AB /* Extension_String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3E4011FE0B8CD005D40AB /* Extension_String.swift */; };
+		5E2A8E0B229CE1170032C02E /* Extension_UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2A8E0A229CE1170032C02E /* Extension_UIDevice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		34B870F61FDA7C5D000FFD0E /* QCalendarPicker.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = QCalendarPicker.gif; sourceTree = "<group>"; };
 		34D3E4011FE0B8CD005D40AB /* Extension_String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_String.swift; sourceTree = "<group>"; };
 		34D3E4071FE0CFC2005D40AB /* QTimePicker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QTimePicker-Bridging-Header.h"; sourceTree = "<group>"; };
+		5E2A8E0A229CE1170032C02E /* Extension_UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_UIDevice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				3438C3A41FDF7F35005AEC67 /* Extension_UIView.swift */,
 				3438C3A61FDF9F01005AEC67 /* Extension_UIColor.swift */,
 				34D3E4011FE0B8CD005D40AB /* Extension_String.swift */,
+				5E2A8E0A229CE1170032C02E /* Extension_UIDevice.swift */,
 				343B03831FD13EAC007ECDE2 /* AppDelegate.swift */,
 				343B03851FD13EAC007ECDE2 /* ViewController.swift */,
 				343B03871FD13EAC007ECDE2 /* Main.storyboard */,
@@ -121,11 +124,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 1020;
 				TargetAttributes = {
 					343B037F1FD13EAC007ECDE2 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -192,6 +195,7 @@
 				34B870F41FDA7983000FFD0E /* QDatePicker.swift in Sources */,
 				34D3E4021FE0B8CD005D40AB /* Extension_String.swift in Sources */,
 				3438C3A71FDF9F01005AEC67 /* Extension_UIColor.swift in Sources */,
+				5E2A8E0B229CE1170032C02E /* Extension_UIDevice.swift in Sources */,
 				343B03861FD13EAC007ECDE2 /* ViewController.swift in Sources */,
 				343B03841FD13EAC007ECDE2 /* AppDelegate.swift in Sources */,
 			);
@@ -233,6 +237,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -240,6 +245,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -290,6 +296,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -297,6 +304,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -340,7 +348,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "QTimePicker/QTimePicker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -358,7 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = qyfeng.QTimePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "QTimePicker/QTimePicker-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

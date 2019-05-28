@@ -86,13 +86,13 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
         addSubview(yearL)
         yearL.roundedCorners(cornerRadius: 10, rectCorner: UIRectCorner([.topLeft, .topRight]))
 
-        sureView = UIButton(type: UIButtonType.system)
+        sureView = UIButton(type: UIButton.ButtonType.system)
         sureView.frame = CGRect(x: margin, y: yearL.y + yearL.height, width: yearL.width, height: sureVH)
         sureView.transform = CGAffineTransform.identity
-        sureView.setTitle("确认", for: UIControlState.normal)
-        sureView.setTitleColor(.white, for: UIControlState.normal)
+        sureView.setTitle("确认", for: UIControl.State.normal)
+        sureView.setTitleColor(.white, for: UIControl.State.normal)
         sureView.backgroundColor = themeColor
-        sureView.addTarget(self, action: #selector(sureDate(_:)), for: UIControlEvents.touchUpInside)
+        sureView.addTarget(self, action: #selector(sureDate(_:)), for: UIControl.Event.touchUpInside)
         addSubview(sureView)
         sureView.roundedCorners(cornerRadius: 10, rectCorner: UIRectCorner([.bottomLeft, .bottomRight]))
 
@@ -108,19 +108,19 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
     /// 弹出 Picker
     open func show() {
         keyWindow?.addSubview(self)
-        keyWindow?.bringSubview(toFront: self)
+        keyWindow?.bringSubviewToFront(self)
         if animationStyle == .styleDefault {
             var duraton = 0.8
             var y = -(margin + yearLH + sureVH)
-            if screenHeight == 812 {
+            if UIDevice.isXSeries() == true {
                 y -= 34
                 duraton = 1.0
             }
-            UIView.animate(withDuration: duraton, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
+            UIView.animate(withDuration: duraton, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: UIView.AnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
                 self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
                 self.sureView.transform = CGAffineTransform(translationX: 0, y: y)
             })
-            UIView.animate(withDuration: duraton, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
+            UIView.animate(withDuration: duraton, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: UIView.AnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
                 self.yearL.transform = CGAffineTransform(translationX: 0, y:  y)
             }, completion: { (finish: Bool) in
                 self.yearL.addSubview(self.pickerView)
@@ -129,11 +129,11 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
                 }
             })
         } else {
-            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
+            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIView.AnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
                 self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
                 self.sureView.transform = CGAffineTransform(translationX: 0, y: -sureVH-(screenHeight/2 - (yearLH + sureVH)/2))
             })
-            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
+            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: UIView.AnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
                 self.yearL.transform = CGAffineTransform(translationX: 0, y: (yearLH + screenHeight/2-(yearLH + sureVH)/2))
             }, completion: { (finish: Bool) in
                 self.yearL.addSubview(self.pickerView)
@@ -150,15 +150,15 @@ class QDatePicker: UIView, UIGestureRecognizerDelegate, UIPickerViewDelegate, UI
             ani.duration = 0.3
             ani.values = [currentTy, currentTy - 20, currentTy]
             ani.keyTimes = [0, 0.2, 0.1]
-            ani.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            ani.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             yearL.layer.add(ani, forKey: "kViewShakerAnimationKey")
             var duraton = 0.21
             var y = -(margin + yearLH + sureVH) + 20
-            if screenHeight == 812 {
+            if UIDevice.isXSeries() == true {
                 y -= 34
                 duraton = 0.27
             }
-            UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 0.3, initialSpringVelocity: 21, options: UIViewAnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 0.3, initialSpringVelocity: 21, options: UIView.AnimationOptions([.curveEaseInOut, .beginFromCurrentState, .layoutSubviews]), animations: {
                 self.yearL.transform = CGAffineTransform(translationX: 0, y: y)
             })
             UIView.animate(withDuration: duraton, delay: 0.36, animations: {

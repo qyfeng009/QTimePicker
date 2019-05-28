@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,55 +27,31 @@
                                     <constraint firstAttribute="height" constant="43" id="8oT-1O-JhX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="QCalendarPicker"/>
                                 <connections>
                                     <action selector="showBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cWV-RU-lG0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QCalendarPicker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAd-nI-lgM">
-                                <rect key="frame" x="0.0" y="189" width="81" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="hYG-Td-Ir4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vcP-k0-EVv">
                                 <rect key="frame" x="0.0" y="251" width="375" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="3Zp-fK-RMO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="QDatePicker"/>
                                 <connections>
                                     <action selector="showQDatePickerBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vWH-mB-Ke2"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QDatePicker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mdl-Ew-a9O">
-                                <rect key="frame" x="0.0" y="262" width="60.5" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="bi5-W7-yKB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.94040103966729405" green="1" blue="0.94081897209613108" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mdl-Ew-a9O" secondAttribute="trailing" constant="20" symbolic="YES" id="3K3-3Q-fIP"/>
                             <constraint firstItem="vcP-k0-EVv" firstAttribute="top" secondItem="Bry-Tg-U4W" secondAttribute="bottom" constant="30" id="7z9-jh-lWb"/>
-                            <constraint firstItem="Mdl-Ew-a9O" firstAttribute="centerY" secondItem="vcP-k0-EVv" secondAttribute="centerY" id="AIa-iF-0Eg"/>
                             <constraint firstAttribute="trailing" secondItem="Bry-Tg-U4W" secondAttribute="trailing" id="BaN-WO-QKM"/>
                             <constraint firstItem="vcP-k0-EVv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JdT-Q6-V9N"/>
-                            <constraint firstItem="Mdl-Ew-a9O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Rx6-s5-JhN"/>
                             <constraint firstItem="Bry-Tg-U4W" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="flE-it-OP4"/>
                             <constraint firstItem="Bry-Tg-U4W" firstAttribute="top" secondItem="FhR-zA-ONf" secondAttribute="bottom" constant="158" id="gIe-8H-WkC"/>
-                            <constraint firstItem="WAd-nI-lgM" firstAttribute="centerY" secondItem="Bry-Tg-U4W" secondAttribute="centerY" id="hsK-A0-ZUp"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WAd-nI-lgM" secondAttribute="trailing" constant="20" symbolic="YES" id="ljv-Gc-Kom"/>
                             <constraint firstAttribute="trailing" secondItem="vcP-k0-EVv" secondAttribute="trailing" id="mkh-cR-kAW"/>
-                            <constraint firstItem="WAd-nI-lgM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sD5-FZ-VCs"/>
                         </constraints>
                     </view>
                 </viewController>

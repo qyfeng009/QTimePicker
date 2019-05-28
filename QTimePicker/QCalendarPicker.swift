@@ -23,10 +23,10 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
     private var currentTime: String!
     private var cursorView: UIView!
     private var selectedBack: DidSelectedDate?
-
+    
     private lazy var calendarView: CalendarView! = {
         var calendarViewH = baseView.height - dateBtn.height
-        if screenHeight == 812 {
+        if UIDevice.isXSeries() == true {
             calendarViewH = baseView.height - dateBtn.height - 34
         }
         let calendarView = CalendarView(frame: CGRect(x: 0, y: dateBtn.height, width: screenWidth, height: calendarViewH))
@@ -48,7 +48,7 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
             }
         }
     }
-
+    
     init(selectedDate: @escaping DidSelectedDate) {
         super.init(frame: UIScreen.main.bounds)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(close))
@@ -56,8 +56,7 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
         addGestureRecognizer(tapGesture)
         backgroundColor = .clear
         selectedBack = selectedDate
-        
-        if screenHeight == 812 {
+        if UIDevice.isXSeries() == true {
             baseViewHeight = 49 + 30 + 6 * calendarItemWH + 6 * 8 + 34
         }
         
@@ -74,37 +73,37 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
         currentTime = date.formatterDate(formatter: "HH:mm")
         
         dateBtn = UIButton(frame: CGRect(x: 10, y: 0, width: 137, height: 49))
-        dateBtn.setTitle("\(year)年\(month)月\(day)日", for: UIControlState.normal)
-        dateBtn.setTitleColor(.darkGray, for: UIControlState.selected)
-        dateBtn.setTitleColor(.gray, for: UIControlState.normal)
+        dateBtn.setTitle("\(year)年\(month)月\(day)日", for: UIControl.State.normal)
+        dateBtn.setTitleColor(.darkGray, for: UIControl.State.selected)
+        dateBtn.setTitleColor(.gray, for: UIControl.State.normal)
         dateBtn.isSelected = true
-        dateBtn.addTarget(self, action: #selector(clickTimeBtn(_:)), for: UIControlEvents.touchUpInside)
+        dateBtn.addTarget(self, action: #selector(clickTimeBtn(_:)), for: UIControl.Event.touchUpInside)
         baseView.addSubview(dateBtn)
         
         timeBtn = UIButton(frame: CGRect(x: dateBtn.x + dateBtn.width + 10, y: dateBtn.y, width: 54, height: dateBtn.height))
-        timeBtn.setTitle(currentTime, for: UIControlState.normal)
+        timeBtn.setTitle(currentTime, for: UIControl.State.normal)
         timeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        timeBtn.setTitleColor(.darkGray, for: UIControlState.selected)
-        timeBtn.setTitleColor(.gray, for: UIControlState.normal)
+        timeBtn.setTitleColor(.darkGray, for: UIControl.State.selected)
+        timeBtn.setTitleColor(.gray, for: UIControl.State.normal)
         timeBtn.isSelected = false
-        timeBtn.addTarget(self, action: #selector(clickTimeBtn(_:)), for: UIControlEvents.touchUpInside)
+        timeBtn.addTarget(self, action: #selector(clickTimeBtn(_:)), for: UIControl.Event.touchUpInside)
         baseView.addSubview(timeBtn)
         
-        let okBtn = UIButton(type: UIButtonType.system)
+        let okBtn = UIButton(type: UIButton.ButtonType.system)
         okBtn.frame = CGRect(x: screenWidth - 10 - 64, y: dateBtn.y, width: 64, height: dateBtn.height)
-        okBtn.setTitle("确定", for: UIControlState.normal)
+        okBtn.setTitle("确定", for: UIControl.State.normal)
         okBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        okBtn.addTarget(self, action: #selector(clickOKBtn), for: UIControlEvents.touchUpInside)
+        okBtn.addTarget(self, action: #selector(clickOKBtn), for: UIControl.Event.touchUpInside)
         baseView.addSubview(okBtn)
         
         cursorView = UIView(frame: CGRect(x: dateBtn.x, y: dateBtn.height - 2, width: dateBtn.width, height: 2))
         cursorView.backgroundColor = UIColor.hex(hex: 0x7D7F82)
         baseView.addSubview(cursorView)
-        baseView.sendSubview(toBack: cursorView)
-
-
+        baseView.sendSubviewToBack(cursorView)
+        
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -132,7 +131,7 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
                     self.calendarView.x = -self.baseView.width
                     self.timePickerView.x = 0
                 }
-
+                
             }
         }
     }
@@ -142,8 +141,8 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
         let selectedMonth = selecteDate.month
         let selectedDay = selecteDate.day
         currentDate = selecteDate.formatterDate(formatter: "YYYY-MM-dd")
-        dateBtn.setTitle("\(selectedYear)年\(selectedMonth)月\(selectedDay)日", for: UIControlState.normal)
-
+        dateBtn.setTitle("\(selectedYear)年\(selectedMonth)月\(selectedDay)日", for: UIControl.State.normal)
+        
         if isAllowSelectTime == true {
             if !baseView.subviews.contains(timePickerView) {
                 self.baseView.addSubview(self.timePickerView)
@@ -159,21 +158,21 @@ class QCalendarPicker: UIView, UIGestureRecognizerDelegate, CalendarViewDelegate
     }
     // MARK: - TimePickerViewDelegate
     func selectedTime(time: String) {
-        timeBtn.setTitle(time, for: UIControlState.normal)
+        timeBtn.setTitle(time, for: UIControl.State.normal)
         currentTime = time
     }
     
     /// 显示
     open func show() {
         keyWindow?.addSubview(self)
-        keyWindow?.bringSubview(toFront: self)
+        keyWindow?.bringSubviewToFront(self)
         UIView.animate(withDuration: 0.21, animations: {
             self.baseView.transform = CGAffineTransform(translationX: 0, y:  -baseViewHeight)
             self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         }, completion: { (finish: Bool) in
             self.baseView.addSubview(self.calendarView)
         } )
-
+        
     }
     @objc private func clickOKBtn() {
         if isAllowSelectTime == true {
@@ -233,7 +232,7 @@ class CalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         yearLbl.adjustsFontSizeToFitWidth = true
         yearLbl.text = "\(currentDate.year)"
         addSubview(yearLbl)
-        sendSubview(toBack: yearLbl)
+        sendSubviewToBack(yearLbl)
         
         collectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.setContentOffset(CGPoint(x: 0, y: (self.height - 30)*1), animated: false)
@@ -421,7 +420,7 @@ class CalendarCell: UICollectionViewCell {
             self.textLbl.text = newValue
         }
         get {
-            return self.text
+            return self.textLbl.text
         }
     }
     open var textColor: UIColor! {
@@ -429,7 +428,7 @@ class CalendarCell: UICollectionViewCell {
             self.textLbl.textColor = newValue
         }
         get {
-            return self.textColor
+            return self.textLbl.textColor
         }
     }
     private lazy var textLbl: UILabel = {
@@ -459,19 +458,19 @@ protocol TimePickerViewDelegate:NSObjectProtocol {
     func selectedTime(time: String)
 }
 class TimePickerView: UIView {
-
+    
     var datePicker: UIDatePicker!
     weak var delegate: TimePickerViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-
+        
         datePicker = UIDatePicker(frame: frame)
         datePicker.centerY = self.height / 2
         datePicker.locale = Locale(identifier: "zh")
-        datePicker.datePickerMode = UIDatePickerMode.time
-        datePicker.addTarget(self, action: #selector(datePickerValueChange(_:)), for: UIControlEvents.valueChanged)
+        datePicker.datePickerMode = UIDatePicker.Mode.time
+        datePicker.addTarget(self, action: #selector(datePickerValueChange(_:)), for: UIControl.Event.valueChanged)
         addSubview(datePicker)
     }
     @objc func datePickerValueChange(_ datePicker: UIDatePicker) {
@@ -481,7 +480,7 @@ class TimePickerView: UIView {
         let time = dateFormatter.string(from: date)
         delegate?.selectedTime(time: time)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

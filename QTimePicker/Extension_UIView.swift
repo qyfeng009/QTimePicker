@@ -192,12 +192,12 @@ extension UIView {
     /// view 添加模糊效果
     ///
     /// - Parameter style: UIBlurEffectStyle
-    func addBlurEffect(style: UIBlurEffectStyle) {
-        let effect = UIBlurEffect(style: UIBlurEffectStyle.light)
+    func addBlurEffect(style: UIBlurEffect.Style) {
+        let effect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let effectView = UIVisualEffectView(effect: effect)
         effectView.frame = self.bounds
         self.backgroundColor = .clear
         self.addSubview(effectView)
-        self.sendSubview(toBack: effectView)
+        self.sendSubviewToBack(effectView)
     }
 }

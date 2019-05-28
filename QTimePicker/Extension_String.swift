@@ -57,7 +57,8 @@ extension String {
             else {
                 return ""
         }
-        if endIndex.encodedOffset <= end_Index.encodedOffset {
+        
+        if endIndex.utf16Offset(in: self) <= end_Index.utf16Offset(in: self) {
             return String(self[start_Index..<endIndex])
         }
         return String(self[start_Index...end_Index])
@@ -65,19 +66,19 @@ extension String {
     // MARK: - 校验字符串位置 是否合理，并返回String.Index
     private func validIndex(original: Int) -> String.Index {
         switch original {
-        case ...startIndex.encodedOffset : return startIndex
-        case endIndex.encodedOffset...   : return endIndex
+        case ...startIndex.utf16Offset(in: self) : return startIndex
+        case endIndex.utf16Offset(in: self)...   : return endIndex
         default                          : return index(startIndex, offsetBy: original)
         }
     }
     // MARK: - 校验是否是合法的起始位置
     private func validStartIndex(original: Int) -> String.Index? {
-        guard original <= endIndex.encodedOffset else { return nil }
+        guard original <= endIndex.utf16Offset(in: self) else { return nil }
         return validIndex(original: original)
     }
     // MARK: - 校验是否是合法的结束位置
     private func validEndIndex(original: Int) -> String.Index? {
-        guard original >= startIndex.encodedOffset else { return nil }
+        guard original >= startIndex.utf16Offset(in: self) else { return nil }
         return validIndex(original: original)
     }
 
@@ -93,4 +94,17 @@ extension String {
         return date!
     }
     
+}
+
+extension Collection where Element: Equatable {
+    func indexDistance(of element: Element) -> Int? {
+        guard let index = firstIndex(of: element) else { return nil }
+        return distance(from: startIndex, to: index)
+    }
+}
+extension StringProtocol {
+    func indexDistance(of string: Self) -> Int? {
+        guard let index = range(of: string)?.lowerBound else { return nil }
+        return distance(from: startIndex, to: index)
+    }
 }
